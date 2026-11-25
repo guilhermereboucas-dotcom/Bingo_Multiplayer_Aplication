@@ -1,3 +1,4 @@
+
 package br.edu.eda.bingo.model;
 
 import java.util.HashMap;
@@ -14,6 +15,19 @@ public class Cartela {
     private int acertos;
 
     public Cartela(String nomeJogador, int[][] numeros) {
+
+        if (numeros == null || numeros.length != 5) {
+            throw new IllegalArgumentException("A cartela deve ter 5 linhas.");
+        }
+
+        for (int[] linha : numeros) {
+            if (linha == null || linha.length != 5) {
+                throw new IllegalArgumentException(
+                        "Cada linha deve possuir 5 números."
+                );
+            }
+        }
+
         this.id = UUID.randomUUID().toString();
         this.nomeJogador = nomeJogador;
         this.numeros = numeros;
@@ -21,15 +35,20 @@ public class Cartela {
         this.indicePosicoes = new HashMap<>();
         this.acertos = 1;
 
+        // Espaço central gratuito
         marcados[2][2] = true;
 
+        // Indexa a posição de cada número
         for (int linha = 0; linha < 5; linha++) {
             for (int coluna = 0; coluna < 5; coluna++) {
 
                 int numero = numeros[linha][coluna];
 
                 if (numero != 0) {
-                    indicePosicoes.put(numero, new int[]{linha, coluna});
+                    indicePosicoes.put(
+                            numero,
+                            new int[]{linha, coluna}
+                    );
                 }
             }
         }
@@ -139,6 +158,11 @@ public class Cartela {
         return nomeJogador;
     }
 
+    public int[][] getNumeros() {
+        return numeros;
+    }
 
-
+    public boolean[][] getMarcados() {
+        return marcados;
+    }
 }
