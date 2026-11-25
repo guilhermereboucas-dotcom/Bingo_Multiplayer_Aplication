@@ -1,5 +1,7 @@
 package br.edu.eda.bingo.model;
 
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -12,6 +14,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.UUID;
 
+@Getter
 public class Partida {
 
     private final String id;
@@ -84,6 +87,10 @@ public class Partida {
 
     public NavigableSet<Integer> getHistoricoSorteados() {
         return historicoSorteados;
+    }
+
+    public int getTotalJogadores() {
+        return cartelas.size();
     }
 
     public void setUltimaBola(Bolinha ultimaBola) {
